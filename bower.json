@@ -1,0 +1,21 @@
+{
+  "name": "impac_maps",
+  "version": "0.0.0",
+  "authors": [
+    "Andre Ambrosio <andre.ambrosio@me.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ngmap": "~1.10.0",
+    "angular": "~1.4.3",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5"
+  }
+}

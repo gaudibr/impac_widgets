@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="map_widget">
+<head>
+  <title>ImpacMaps</title>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather,visualization,panoramio"></script>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+      <map center="-34.397, 150.644" zoom="8"></map>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
