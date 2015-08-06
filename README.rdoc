@@ -1,28 +1,17 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an attempt to solve the impac! widget exercise by cesar-tonnoir
 
-Things you may want to cover:
+Yet to be done:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* employee locations widget:
+  * reduce locations that have same/similar coordinates
+  * alter the size/display of each marker depending on number of employees
+  * set display to encompass as many locations as there are in the map (with dynamic zoom)
+  * set map to calculate center based on locations
+* implement sales channel widget
+* improve interface (switch widgets by type)
+* add exception handling
+* add testing
+* angular
+  - separate templates and group controllers/factories by theme (currently only one)
