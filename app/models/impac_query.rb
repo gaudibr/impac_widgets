@@ -4,8 +4,9 @@ class ImpacQuery
   base_uri 'api-impac-uat.maestrano.io/api/v1' 
   
   def initialize
-    u = "72db99d0-05dc-0133-cefe-22000a93862b"
-    p = "_cIOpimIoDi3RIviWteOTA"
+    u = Rails.application.secrets.maestrano_api_user
+    p = Rails.application.secrets.maestrano_api_pass
+    
     @auth = {username: u, password: p}
   end
   
@@ -14,5 +15,6 @@ class ImpacQuery
     query = { "metadata" => {"organization_ids" => ["org-fbte"]}, "engine" => "hr/employees_list" }
     options.merge!({query: query})
     self.class.get("/get_widget", options)
+
   end
 end

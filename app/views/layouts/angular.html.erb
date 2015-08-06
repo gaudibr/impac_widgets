@@ -11,9 +11,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-      <map center="-34.397, 150.644" zoom="8"></map>
+        <ui-view></ui-view>
       </div>
     </div>
   </div>
+  <script type="text/ng-template" id="/locations.html">
+    <div>
+      //<p>{{locations}}</p>
+      <map center="37.7527994, -122.4229019" zoom="12">
+        <marker ng-repeat="location in locations" icon="{{image}}" shape="{{shape}}" title="{{location.name}}" position="{{location.position}}" ></marker>
+      </map>
+    </div>
+  </script>
 </body>
 </html>

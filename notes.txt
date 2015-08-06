@@ -1,0 +1,78 @@
+RestClient::Request.execute(method: :post, url: 'https://api-impac-uat.maestrano.io/api/v1/get_widget', \
+ headers: { params: { username: "72db99d0-05dc-0133-cefe-22000a93862b", password: "_cIOpimIoDi3RIviWteOTA" }}, \
+ payload: { engine: "hr/employees_list", metadata: {organization_ids: ["org-fbte"]}}, :verify_ssl => false)
+ 
+ RestClient::Request.execute(method: :post, url: 'https://api-impac-uat.maestrano.io/api/v1/get_widget', \
+ headers: { :Authorization => 'Basic 72db99d0-05dc-0133-cefe-22000a93862b:_cIOpimIoDi3RIviWteOTA', \
+ params: { engine: "hr/employees_list", metadata: {organization_ids: ["org-fbte"]}}}, :verify_ssl => false)
+ "
+ username = "72db99d0-05dc-0133-cefe-22000a93862b"
+ password = "_cIOpimIoDi3RIviWteOTA"
+ 
+ creds = username + ':' + password
+ 
+ auth_string = Base64.encode64(creds)
+ auth_header = 'Basic ' + auth_string
+ 
+ RestClient::Request.execute(method: :post, url: 'https://api-impac-uat.maestrano.io/api/v1/get_widget', \
+ headers: { 'auth' => auth_header , \
+ params: { metadata: {organization_ids: ["org-fbte"]}, \
+ engine: "hr/employees_list"}}, \
+ :verify_ssl => false)
+ 
+ 
+ https://72db99d0-05dc-0133-cefe-22000a93862b:_cIOpimIoDi3RIviWteOTA@api-impac-uat.maestrano.io/api/v1/get_widget
+ 
+ 
+ auth = {:username => "72db99d0-05dc-0133-cefe-22000a93862b", :password => "_cIOpimIoDi3RIviWteOTA"}
+ 
+ url = 'https://api-impac-uat.maestrano.io/api/v1/get_widget'
+ 
+ query = { "metadata" => {"organization_ids" => ["org-fbte"]}, "engine" => "hr/employees_list" }
+ 
+HTTParty.get(url, :basic_auth => auth, :verify => false, :query => query)
+
+{
+  "content" => {
+    "organizations" => ["org-fbte"], "total" => {
+      "period" => "MONTHLY", "employees" => 6, "average_rate" => 5863.0, "currency" => "USD"
+    }, "employees" => [{
+      "gender" => "M", "social_security_number" => "***-**-7896", "hired_date" => "2014-11-01", "work_locations" => [{
+        "id" => "711a8571-0b31-0133-4ced-22000aac0203"
+      }], "created_at" => "2015-07-13T02:04:46Z", "updated_at" => "2015-07-13T02:04:46Z", "company_currency" => "USD", "address" => "130 Elizabeth Street, Suite 130, San Francisco CA 94123, United States", "email" => nil, "phone" => "012-345-6487", "salary" => {
+        "for_period" => "MONTHLY", "currency" => "USD", "amount" => 6825.0
+      }, "uid" => "75975b00-0b31-0133-4cfd-22000aac0203", "firstname" => "Frank", "lastname" => "Boyer", "dob" => nil, "location" => "-", "supervisor" => "-", "employment_status" => "-", "note" => "-"
+    }, {
+      "social_security_number" => "", "work_locations" => [], "created_at" => "2015-07-13T02:04:42Z", "updated_at" => "2015-07-13T02:04:42Z", "company_currency" => "USD", "address" => "Suite 204, Eli Street, San Francisco CA 94123, United States", "email" => "arnaud@doe.com", "phone" => nil, "uid" => "733f1321-0b31-0133-4cf0-22000aac0203", "firstname" => "Arnaud", "lastname" => "Do", "dob" => nil, "location" => "-", "supervisor" => "-", "employment_status" => "-", "note" => "-"
+    }, {
+      "gender" => "M", "employee_id" => "1245", "social_security_number" => "***-**-9786", "hired_date" => "2015-04-01", "work_locations" => [{
+        "id" => "711a8571-0b31-0133-4ced-22000aac0203"
+      }], "created_at" => "2015-07-13T02:04:44Z", "updated_at" => "2015-07-13T02:04:44Z", "company_currency" => "USD", "address" => "130 Elizabeth Street, Suite 104, San Francisco CA 94123, United States", "email" => "bruno@doe.com", "phone" => nil, "uid" => "746fa3e1-0b31-0133-4cf4-22000aac0203", "firstname" => "Bruno", "lastname" => "Doe", "dob" => "1977-02-12", "location" => "-", "supervisor" => "-", "employment_status" => "-", "note" => "-"
+    }, {
+      "gender" => "M", "social_security_number" => "***-**-3456", "hired_date" => "2015-05-01", "work_locations" => [{
+        "id" => "711a8571-0b31-0133-4ced-22000aac0203"
+      }], "created_at" => "2015-07-13T02:04:49Z", "updated_at" => "2015-07-13T02:04:49Z", "company_currency" => "USD", "address" => "32 Elizabeth Stret, suite 104, San Francisco CA 94132, United States", "email" => "james@doe.com", "phone" => "123-456-7892", "salary" => {
+        "for_period" => "MONTHLY", "currency" => "USD", "amount" => 4901.0
+      }, "uid" => "76cfb3f1-0b31-0133-1f97-22000aac0203", "firstname" => "James", "lastname" => "Doe", "dob" => "1980-01-31", "location" => "-", "supervisor" => "-", "employment_status" => "-", "note" => "-"
+    }, {
+      "social_security_number" => "", "work_locations" => [], "created_at" => "2015-07-13T02:04:51Z", "updated_at" => "2015-07-13T02:04:51Z", "company_currency" => "USD", "address" => "Eli street, San Francisco CA 94123, United States", "email" => "ryan@orange.com", "phone" => nil, "uid" => "783de9e0-0b31-0133-1fa1-22000aac0203", "firstname" => "Ryan", "lastname" => "OrangeHRM", "dob" => nil, "location" => "-", "supervisor" => "-", "employment_status" => "-", "note" => "-"
+    }, {
+      "code" => "EM2", "employee_id" => "", "social_security_number" => "", "work_locations" => [], "created_at" => "2015-07-14T08:43:18Z", "updated_at" => "2015-07-14T08:43:18Z", "company_currency" => "USD", "address" => "504/46 Market Street, , Sydney NSW 2000, Australia", "email" => "it+demo-account@maestrano.com", "phone" => "", "uid" => "4c264cc1-0c32-0133-7621-22000aac0203", "firstname" => "Mark", "lastname" => "Sample", "dob" => nil, "location" => "-", "supervisor" => "-", "employment_status" => "-", "note" => "-"
+    }]
+  }
+}
+
+<p><%= reduce_locations convert_locations employees_location get_employee_data @results %></p>
+
+show.html.erb
+
+
+To do:
+
+- employee locations widget:
+  - reduce locations that have same/similar coordinates
+  - alter the size/display of each marker depending on number of employees
+- implement sales channel widet
+- improve interface (switch widgets by type)
+- add exception handling
+- add testing

@@ -18,6 +18,10 @@ gem 'httparty'
 
 gem 'geocoder'
 
+gem 'responders'
+
+gem 'angular-rails-templates'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

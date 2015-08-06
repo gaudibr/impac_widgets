@@ -1,8 +1,57 @@
-angular.module('flapperNews', [])
-.controller('MainCtrl', [
-'$scope',
-function($scope){
-  $scope.test = 'Hello world!';
+angular.module('map_widget', ['ngMap', 'ui.router', 'templates']).config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  function($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+    .state('locations', {
+      url: '/locations',
+      templateUrl: '/locations.html',
+      controller: 'EmployeeLocationsCtrl',
+      resolve: {
+         locationPromise: ['locations', function(locations) {
+          return locations.getAll();
+    }]}
+    });
+
+    $urlRouterProvider.otherwise('locations')
 }]);
 
-var myApp = angular.module('map_widget', ['ngMap']);
+angular.module('map_widget')
+.factory('locations', [
+'$http', 
+function($http) {
+   
+    var o = {
+        locations: []
+    }
+    
+     o.getAll = function() {
+        return $http.get('/impac_queries.json').success(function(data){
+            angular.copy(data, o.locations);
+        });
+    };
+    
+    return o;
+}]);
+
+angular.module('map_widget')
+.controller('EmployeeLocationsCtrl', ['$scope', 'locations', function($scope, locations) {
+    $scope.image = {
+        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',        
+        size: [20, 32], 
+        origin: [0,0],
+        anchor: [0, 32]
+    };
+    
+    $scope.shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18 , 1],
+        type: 'poly'
+    };
+    
+    $scope.locations = locations.locations
+    
+    $scope.getRadius = function(num) {
+        return Math.sqrt(num) * 200;
+    };
+}]);
