@@ -37,36 +37,25 @@ function($http) {
 
 angular.module('map_widget')
 .controller('EmployeeLocationsCtrl', ['$scope', 'locations', function($scope, locations) {
-    $scope.image = {
-        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',        
-        size: [20, 32], 
-        origin: [0,0],
-        anchor: [0, 32]
-    };
-    
-    $scope.shape = {
-        coords: [1, 1, 1, 20, 18, 20, 18 , 1],
-        type: 'poly'
-    };
-    
+
     $scope.locations = locations.locations
     
     $scope.positions = $scope.locations.map(function(item) {
       return item.position;
     });
     
+    $scope.dynMarkers = [];
     var bounds = new google.maps.LatLngBounds();
+    
     for (var i=0; i<$scope.positions.length; i++) {
-      var latlng = new google.maps.LatLng($scope.positions[i][0], $scope.positions[i][1]);
-      bounds.extend(latlng);
+      var latLng = new google.maps.LatLng($scope.positions[i][0], $scope.positions[i][1]);
+      $scope.dynMarkers.push(new google.maps.Marker({position:latLng}));
+      bounds.extend(latLng);
     }
-    
     $scope.$on('mapInitialized', function(event, map) {
-          map.setCenter(bounds.getCenter());
-          map.fitBounds(bounds);
-        });
+      $scope.markerClusterer = new MarkerClusterer(map, $scope.dynMarkers, {});
+      map.setCenter(bounds.getCenter());
+      map.fitBounds(bounds);
+    });
     
-    $scope.getRadius = function(num) {
-        return Math.sqrt(num) * 200;
-    };
 }]);

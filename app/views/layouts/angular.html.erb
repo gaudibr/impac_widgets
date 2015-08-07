@@ -3,9 +3,12 @@
 <head>
   <title>ImpacMaps</title>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather,visualization,panoramio"></script>
+
+
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
   <div class="container">
@@ -17,8 +20,7 @@
   </div>
   <script type="text/ng-template" id="/locations.html">
     <div>
-      <map center="37.7527994, -122.4229019" zoom="12">
-        <marker ng-repeat="location in locations" icon="{{image}}" shape="{{shape}}" title="{{location.name}}" position="{{location.position}}" ></marker>
+      <map center="37.7527994, -122.4229019" zoom="2">
       </map>
     </div>
   </script>

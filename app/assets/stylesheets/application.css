@@ -14,3 +14,8 @@
  *= require_tree .
  *= require_self
  */
+map, div[map] {
+  display:block; 
+  width:600px; 
+  height:400px;
+}

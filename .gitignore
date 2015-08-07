@@ -16,3 +16,4 @@
 !/log/.keep
 /tmp
 notes.txt
+/spring/*.pid
