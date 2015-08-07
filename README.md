@@ -1,4 +1,5 @@
-== README
+README
+======
 
 This is an attempt to solve the impac! widget exercise by cesar-tonnoir
 
@@ -14,4 +15,5 @@ Yet to be done:
 * add exception handling
 * add testing
 * angular
-  - separate templates and group controllers/factories by theme (currently only one)
+  * separate templates and group controllers/factories by theme (currently only one)
+* Improve documentation (both on readme and throughout code)
