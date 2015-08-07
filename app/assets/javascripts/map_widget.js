@@ -51,6 +51,21 @@ angular.module('map_widget')
     
     $scope.locations = locations.locations
     
+    $scope.positions = $scope.locations.map(function(item) {
+      return item.position;
+    });
+    
+    var bounds = new google.maps.LatLngBounds();
+    for (var i=0; i<$scope.positions.length; i++) {
+      var latlng = new google.maps.LatLng($scope.positions[i][0], $scope.positions[i][1]);
+      bounds.extend(latlng);
+    }
+    
+    $scope.$on('mapInitialized', function(event, map) {
+          map.setCenter(bounds.getCenter());
+          map.fitBounds(bounds);
+        });
+    
     $scope.getRadius = function(num) {
         return Math.sqrt(num) * 200;
     };
