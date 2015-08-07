@@ -17,3 +17,6 @@ Yet to be done:
 * angular
   * separate templates and group controllers/factories by theme (currently only one)
 * Improve documentation (both on readme and throughout code)
+* Performance:
+  * introduce a caching model to store locations an avoid geocoder to consume google api resources
+* Make widget dynamic for different organizations 
