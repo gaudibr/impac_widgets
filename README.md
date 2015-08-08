@@ -8,8 +8,8 @@ SUMMARY
 
 Endpoints are:
 
-https://rails-tutorial-gaudibr.c9.io/#/sales_channels
-https://rails-tutorial-gaudibr.c9.io/#/locations
+https://glacial-river-5935.herokuapp.com/#/locations
+https://glacial-river-5935.herokuapp.com/#/sales_channels
 
 TO-DO LIST
 =====
@@ -22,6 +22,7 @@ TO-DO LIST
 * <strike>implement sales channel widget</strike>
   * cleanup code (too much repeated code)
   * resolve issue where single marker does not display value (change marker style and text)
+  * manage missing locations
 * improve interface (switch widgets by type)
 * add exception handling
 * add testing
@@ -29,5 +30,5 @@ TO-DO LIST
   * separate templates and group controllers/factories by theme (currently only one)
 * Improve documentation (both on readme and throughout code)
 * Performance:
-  * introduce a caching model to store locations an avoid geocoder to consume google api resources
+  * introduce a caching model to store locations an avoid geocoder to consume google api resources (possibly mongodb)
 * Make widget dynamic for different organizations 
