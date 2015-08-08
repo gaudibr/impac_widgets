@@ -6,19 +6,28 @@ angular.module('map_widget', ['ngMap', 'ui.router', 'templates']).config([
     $stateProvider
     .state('locations', {
       url: '/locations',
-      templateUrl: '/locations.html',
+      templateUrl: '/map_widget.html',
       controller: 'EmployeeLocationsCtrl',
       resolve: {
-         locationPromise: ['locations', function(locations) {
+         locationPromise: ['locationsFactory', function(locations) {
           return locations.getAll();
     }]}
-    });
+    })
+    .state('sales_channels', {
+      url: '/sales_channels',
+      templateUrl: '/map_widget.html',
+      controller: 'SalesChannelCtrl',
+      resolve: {
+         salesChannelPromise: ['invoice_dataFactory', function(invoice_data) {
+          return invoice_data.getAll();
+    }]}
+    })
 
-    $urlRouterProvider.otherwise('locations')
+    $urlRouterProvider.otherwise('sales_channels')
 }]);
 
 angular.module('map_widget')
-.factory('locations', [
+.factory('locationsFactory', [
 '$http', 
 function($http) {
    
@@ -27,7 +36,7 @@ function($http) {
     }
     
      o.getAll = function() {
-        return $http.get('/impac_queries.json').success(function(data){
+        return $http.get('/employees.json').success(function(data){
             angular.copy(data, o.locations);
         });
     };
@@ -36,7 +45,25 @@ function($http) {
 }]);
 
 angular.module('map_widget')
-.controller('EmployeeLocationsCtrl', ['$scope', 'locations', function($scope, locations) {
+.factory('invoice_dataFactory', [
+'$http', 
+function($http) {
+   
+    var o = {
+        invoice_data: []
+    }
+    
+     o.getAll = function() {
+        return $http.get('/invoices/customers.json').success(function(data){
+            angular.copy(data, o.invoice_data);
+        });
+    };
+    
+    return o;
+}]);
+
+angular.module('map_widget')
+.controller('EmployeeLocationsCtrl', ['$scope', 'locationsFactory', function($scope, locations) {
 
     $scope.locations = locations.locations
     
@@ -58,4 +85,56 @@ angular.module('map_widget')
       map.fitBounds(bounds);
     });
     
+}]);
+
+angular.module('map_widget')
+.controller('SalesChannelCtrl', ['$scope', 'invoice_dataFactory', function($scope, invoice_data) {
+
+    $scope.invoice_data = invoice_data.invoice_data
+    
+    $scope.positions = $scope.invoice_data.map(function(item) {
+      return item.position;
+    });
+    
+    $scope.dynMarkers = [];
+    var bounds = new google.maps.LatLngBounds();
+    
+    for (var i=0; i<$scope.invoice_data.length; i++) {
+      var position = $scope.invoice_data[i].position
+      var value = $scope.invoice_data[i].amount_invoiced
+      if (position != null) {
+        var latLng = new google.maps.LatLng(position[0], position[1]);
+        $scope.dynMarkers.push(new google.maps.Marker({position:latLng, value: value, title: "$ " + value.toFixed(2)}));
+        bounds.extend(latLng);
+      }
+    }
+    
+    function total( markers, numStyles) {
+      var index = 0;
+      var total = 0;
+      for (var i=0; i< markers.length; i++) {
+        total = total + markers[i].value;
+      }
+      var count = markers.length.toString();
+
+      var dv = count;
+      while (dv !== 0) {
+        dv = parseInt(dv / 10, 10);
+        index++;
+      }
+    
+      index = Math.min(index, numStyles);
+      
+      return {
+        text: "$ " + total.toFixed(2),
+        index: index,
+        title: "$ " + total.toFixed(2)
+      };
+    };
+    
+    $scope.$on('mapInitialized', function(event, map) {
+      $scope.markerClusterer = new MarkerClusterer(map, $scope.dynMarkers, {'calculator': total});
+      map.setCenter(bounds.getCenter());
+      map.fitBounds(bounds);
+    });
 }]);
