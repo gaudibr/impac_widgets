@@ -22,7 +22,7 @@ TO-DO LIST
 * <strike>implement sales channel widget</strike>
   * cleanup code (too much repeated code)
   * resolve issue where single marker does not display value (change marker style and text)
-  * manage missing locations
+  * <strike>manage missing locations</strike>
 * improve interface (switch widgets by type)
 * add exception handling
 * add testing

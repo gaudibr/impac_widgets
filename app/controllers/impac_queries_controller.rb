@@ -23,7 +23,7 @@ class ImpacQueriesController < ApplicationController
     employees.each do  |emp|
       locations << {
         :name => emp['address'],
-        :position => (Geocoder.coordinates emp['address']),
+        :position => (get_position emp['address']),
       }
     end
     locations
@@ -32,24 +32,30 @@ class ImpacQueriesController < ApplicationController
   def sales_channels entities
     totals = Array.new
     entities.each do |ent|
-      loc = ent['address']['l'],
-      state = ent['address']['r'],
-      zip = ent['address']['z'],
-      country = ent['address']['c']
       totals << {
         :name => ent['name'],
         :amount_invoiced => ent['total_invoiced'],
-        :location => loc,
-        :state => state,
-        :zip => zip,
-        :country => country,
-        :position => (Geocoder.coordinates loc.to_s)
+        :position => (get_position( ent['address'], ent['name']))
       }
     end
     totals
   end
   
-  def get_position(location, state, zip, country)
-    
+  def get_position address, name = nil
+    position = ""
+    if address.is_a?(String)
+      position = Geocoder.coordinates address
+    elsif address.is_a?(Hash)
+      loc = address['l']
+      state = address['r']
+      zip = address['z']
+      country = address['c']
+      location_string = "#{loc+" ," unless loc =="-"} #{state+" ," unless state =="-"} #{zip+" ," unless zip =="-"} #{country unless country =="-"}"
+      position = Geocoder.coordinates location_string unless location_string.blank?
+      if location_string.blank?
+        position = Geocoder.coordinates name
+      end
+    end
+    position
   end
 end

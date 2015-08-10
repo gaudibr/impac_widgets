@@ -102,19 +102,32 @@ angular.module('map_widget')
     for (var i=0; i<$scope.invoice_data.length; i++) {
       var position = $scope.invoice_data[i].position
       var value = $scope.invoice_data[i].amount_invoiced
+      var name = $scope.invoice_data[i].name
+      var title = name + "\n- " + "Total Invoiced: $ " + value.toFixed(2);
+      var latLng;
+      var realLocation = false;
       if (position != null) {
-        var latLng = new google.maps.LatLng(position[0], position[1]);
-        $scope.dynMarkers.push(new google.maps.Marker({position:latLng, value: value, title: "$ " + value.toFixed(2)}));
-        bounds.extend(latLng);
+        latLng = new google.maps.LatLng(position[0], position[1]);
+        realLocation = true;
       }
+      else {
+        latLng = new google.maps.LatLng(-6.846733, -153.664305);
+      }
+      $scope.dynMarkers.push(new google.maps.Marker({position:latLng, value: value, title: title, name: name, realLocation: realLocation}));
+      bounds.extend(latLng);
     }
     
     function total( markers, numStyles) {
       var index = 0;
       var total = 0;
+      var flag = false;
+      var flagText = "";
       for (var i=0; i< markers.length; i++) {
         total = total + markers[i].value;
+        if(!markers[i].realLocation) flag = true;
       }
+      if(flag) flagText = "\nThis marker contains data from transactions without valid addresses"
+      
       var count = markers.length.toString();
 
       var dv = count;
@@ -128,7 +141,7 @@ angular.module('map_widget')
       return {
         text: "$ " + total.toFixed(2),
         index: index,
-        title: "$ " + total.toFixed(2)
+        title: count + " customers\n" +  "$ " + total.toFixed(2) + flagText
       };
     };
     
