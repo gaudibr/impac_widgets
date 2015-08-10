@@ -9,6 +9,7 @@ SUMMARY
 Endpoints are:
 
 https://glacial-river-5935.herokuapp.com/#/locations
+
 https://glacial-river-5935.herokuapp.com/#/sales_channels
 
 TO-DO LIST
