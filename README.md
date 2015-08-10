@@ -30,5 +30,6 @@ TO-DO LIST
   * separate templates and group controllers/factories by theme (currently only one)
 * Improve documentation (both on readme and throughout code)
 * Performance:
-  * introduce a caching model to store locations an avoid geocoder to consume google api resources (possibly mongodb)
-* Make widget dynamic for different organizations 
+  * <strike>move geocoding to the model to allow caching - Update: not needed (can use memory caching)</strike>
+  * <strike>introduce a caching model to store locations an avoid geocoder to consume google api resources (possibly mongodb)</strike>
+* Make widget dynamic for different organizations - Currently not necessary
