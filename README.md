@@ -21,7 +21,7 @@ TO-DO LIST
   * <strike>set map to calculate center based on locations</strike>
 * <strike>implement sales channel widget</strike>
   * cleanup code (too much repeated code)
-  * resolve issue where single marker does not display value (change marker style and text)
+  * <strike>resolve issue where single marker does not display value (change marker style and text)</strike> Done via tooltip
   * <strike>manage missing locations</strike>
 * improve interface (switch widgets by type)
 * add exception handling
